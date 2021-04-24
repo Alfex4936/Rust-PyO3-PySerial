@@ -11,4 +11,4 @@ python setup.py install
 ```
 
 # Import
-Check `examples/test1.py`
+Check [`examples/test1.py`](https://github.com/Alfex4936/Rust-PyO3-Example/blob/main/examples/test1.py)
