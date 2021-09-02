@@ -1,18 +1,11 @@
-from rust_sort import bubble, Human
+from rust_sort import Human, bubble
 
 
 def bubble_test():
     # homogeneous
-    bubble([5, -2, 3, 0, 11])
-    """
-    5
-    -2
-    3
-    0
-    11
-    """
-    # works for heterogeneous too
-    bubble([5, -2, "a", 0, 11])
+    a = [1, 42024, -1, 22, 0, 333333]
+    bubble(a)
+    print(a)
 
 
 def class_test():

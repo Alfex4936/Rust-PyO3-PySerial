@@ -2,7 +2,7 @@
 
 A simple example of using [PyO3](https://github.com/PyO3/pyo3)
 
-(Python modules building with Rust language)
+To sort homogeneous array for funs.
 
 # Build
 
@@ -11,4 +11,4 @@ python setup.py install
 ```
 
 # Import
-Check [`examples/test1.py`](https://github.com/Alfex4936/Rust-PyO3-Example/blob/main/examples/test1.py)
+Check [`examples/test1.py`](https://github.com/Alfex4936/Rust-PyO3-Sort/blob/main/examples/test1.py)
