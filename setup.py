@@ -4,19 +4,19 @@ from setuptools_rust import Binding, RustExtension
 
 def call_setup():
     setup(
-        name="rust_sort",
+        name="uwb_serial",
         version="0.0.1",
-        description="Sorting algorithms in Rust",
+        description="Using rust serial on Python like PySerial",
         # long_description=open("README.rst", encoding="utf-8").read(),
         # long_description_content_type="text/x-rst",
-        keywords="rust sort",
+        keywords="rust serial",
         author="Seok Won",
         author_email="ikr@kakao.com",
         maintainer="Seok Won",
         maintainer_email="ikr@kakao.com",
-        python_requires=">=3.5",
+        python_requires=">=3.7",
         license="MIT",
-        rust_extensions=[RustExtension("rust_sort", binding=Binding.PyO3)],
+        rust_extensions=[RustExtension("uwb_serial", binding=Binding.PyO3)],
         classifiers=[
             "Development Status :: 3 - Alpha",
             "Intended Audience :: Developers",

@@ -1,66 +1,129 @@
-extern crate pyo3;
-
 use pyo3::prelude::*;
-use pyo3::types::PyList;
-use std::cmp::Ordering;
-#[pyclass(subclass)]
-pub struct Human {
+// use pyo3::types::{PyInt, PyString};
+
+use std::fs::OpenOptions;
+use std::io::{self, Error, Read, Write};
+use std::time::Duration;
+
+/// Decawave dwm1001 serial connector (contiki-os)
+#[pyclass(name = "UWB")]
+pub struct UWB {
     #[pyo3(get)]
-    name: String,
+    port_name: String,
     #[pyo3(get)]
-    age: u8,
+    baudrate: u32,
     #[pyo3(get)]
-    salary: u32,
+    timeout: u64,
+    #[pyo3(get)]
+    log_file: String,
 }
 
 #[pymethods]
-impl Human {
+impl UWB {
+    /// port, baudrate, timeout, log_file
     #[new]
-    fn new(name: String, age: u8, salary: u32) -> Self {
-        Human { name, age, salary }
+    fn __new__(
+        port: String,
+        baudrate: Option<u32>,
+        timeout: Option<u64>,
+        log_file: Option<String>,
+    ) -> Self {
+        UWB {
+            port_name: port.to_string(),
+            baudrate: baudrate.unwrap_or(115200),
+            timeout: timeout.unwrap_or(100),
+            log_file: log_file.unwrap_or("None".to_string()),
+        }
     }
 
-    fn promote(&mut self, salary: u32) {
-        self.salary = salary;
+    /// Get all available ports
+    #[staticmethod]
+    fn get_available_ports() -> PyResult<Vec<String>> {
+        let ports = serialport::available_ports().expect("No ports found!");
+
+        let mut all_ports = Vec::new();
+        for p in ports {
+            all_ports.push(format!("{} ({:?})", p.port_name, p.port_type));
+        }
+
+        Ok(all_ports)
     }
 
-    fn string(&self) -> PyResult<String> {
-        let str = format!("I am {}!", self.name);
-        Ok(str)
-    }
-}
+    /// Connect to port infinitely
+    fn connect(&self, stdout: Option<bool>, py: Python<'_>) -> PyResult<()> {
+        // ctrlc::set_handler(|| ::std::process::exit(1)).unwrap();
 
-#[pyfunction]
-fn bubble(_py: Python, array: &PyList) -> PyResult<()> {
-    let mut count = 0;
-    let mut is_sorted = false;
-    let n = array.len() - 1;
+        // let port = serialport::new(&self.port_name, self.baudrate)
+        //     .timeout(Duration::from_millis(self.timeout))
+        //     .open();
+        let port = serialport::new(&self.port_name, self.baudrate)
+            .timeout(Duration::from_millis(self.timeout))
+            .open_native();
 
-    while !is_sorted {
-        is_sorted = true;
-        for i in 0..(n - count) as isize {
-            let first = array.get_item(i);
-            let second = array.get_item(i + 1);
-            match first.compare(second).unwrap() {
-                Ordering::Greater => {
-                    array.set_item(i, second)?;
-                    array.set_item(i + 1, first)?;
-                    is_sorted = false;
+        let mut log_file = if self.log_file.ne("None") {
+            Some(
+                OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .append(false)
+                    .open(&self.log_file)
+                    .unwrap(),
+            )
+        } else {
+            None
+        };
+
+        match port {
+            Ok(mut port) => {
+                port.set_exclusive(false).expect("Non exclusive");
+                let mut serial_buf: Vec<u8> = vec![0; 512];
+                println!(
+                    "Receiving data on {} at {} baud!",
+                    &self.port_name, &self.baudrate
+                );
+                loop {
+                    match py.check_signals() {
+                        Err(e) => {
+                            std::mem::drop(&port);
+                            println!("Error: {}", e);
+                            break;
+                            // ::std::process::exit(1)
+                        }
+                        _ => {}
+                    }
+
+                    match port.read(serial_buf.as_mut_slice()) {
+                        Ok(t) => {
+                            if let Some(std) = stdout {
+                                if std {
+                                    io::stdout().write_all(&serial_buf[..t]).unwrap();
+                                }
+                            }
+                            if let Some(ref mut log) = log_file {
+                                log.write_all(&serial_buf[..t]).unwrap();
+                            }
+
+                            // let msg = std::str::from_utf8(&serial_buf[..t]).unwrap();
+                            // println!("{:?}", msg);
+                        }
+                        Err(ref e) if e.kind() == io::ErrorKind::TimedOut => (),
+                        Err(e) => eprintln!("{:?}", e),
+                    }
                 }
-                _ => {}
+            }
+            Err(e) => {
+                eprintln!("Failed to open \"{}\". Error: {}", self.port_name, e);
+                ::std::process::exit(1);
             }
         }
 
-        count += 1;
+        Ok(())
     }
-
-    Ok(())
 }
 
+/// UWB serial connector
 #[pymodule]
-fn rust_sort(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_class::<Human>()?;
-    m.add_function(wrap_pyfunction!(bubble, m)?)?;
-
+fn uwb_serial(_py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_class::<UWB>()?;
     Ok(())
 }
