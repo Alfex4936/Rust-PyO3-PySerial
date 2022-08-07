@@ -7,7 +7,7 @@ def main():
 
     print(uwb.port_name, uwb.baudrate, uwb.log_file)
 
-    uwb.connect(stdout=True)
+    uwb.connect(stdout=True, append=True)
     print("Came here")
 
 

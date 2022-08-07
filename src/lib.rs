@@ -6,7 +6,7 @@ use std::io::{self, Error, Read, Write};
 use std::time::Duration;
 
 /// Decawave dwm1001 serial connector (contiki-os)
-#[pyclass(name = "UWB")]
+#[pyclass(name = "UWB", freelist = 100)]
 pub struct UWB {
     #[pyo3(get)]
     port_name: String,
@@ -22,7 +22,7 @@ pub struct UWB {
 impl UWB {
     /// port, baudrate, timeout, log_file
     #[new]
-    fn __new__(
+    fn new(
         port: String,
         baudrate: Option<u32>,
         timeout: Option<u64>,
@@ -50,7 +50,8 @@ impl UWB {
     }
 
     /// Connect to port infinitely
-    fn connect(&self, stdout: Option<bool>, py: Python<'_>) -> PyResult<()> {
+    #[pyo3(text_signature = "($self, stdout, append)")]
+    fn connect(&self, stdout: Option<bool>, append: Option<bool>, py: Python<'_>) -> PyResult<()> {
         // ctrlc::set_handler(|| ::std::process::exit(1)).unwrap();
 
         // let port = serialport::new(&self.port_name, self.baudrate)
@@ -65,7 +66,7 @@ impl UWB {
                 OpenOptions::new()
                     .write(true)
                     .create(true)
-                    .append(false)
+                    .append(append.unwrap_or(false))
                     .open(&self.log_file)
                     .unwrap(),
             )
