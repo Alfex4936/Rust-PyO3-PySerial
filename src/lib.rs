@@ -50,8 +50,14 @@ impl UWB {
     }
 
     /// Connect to port infinitely
-    #[pyo3(text_signature = "($self, stdout, append)")]
-    fn connect(&self, stdout: Option<bool>, append: Option<bool>, py: Python<'_>) -> PyResult<()> {
+    #[pyo3(text_signature = "($self, stdout, append, interactive, /)")]
+    fn connect(
+        &self,
+        stdout: Option<bool>,
+        append: Option<bool>,
+        interactive: Option<bool>,
+        py: Python<'_>,
+    ) -> PyResult<()> {
         // ctrlc::set_handler(|| ::std::process::exit(1)).unwrap();
 
         // let port = serialport::new(&self.port_name, self.baudrate)
@@ -109,6 +115,31 @@ impl UWB {
                         }
                         Err(ref e) if e.kind() == io::ErrorKind::TimedOut => (),
                         Err(e) => eprintln!("{:?}", e),
+                    }
+
+                    if let Some(ia) = interactive {
+                        if ia {
+                            let stdin = std::io::stdin();
+                            let mut line_buf = String::new();
+                            match stdin.read_line(&mut line_buf) {
+                                Ok(t) => {
+                                    let line = line_buf[..t].trim_end().to_string() + "\n";
+                                    line_buf.clear();
+                                    match port.write(line.as_bytes()) {
+                                        Ok(_) => {
+                                            print!("User input: {}", &line);
+                                            // std::io::stdout().flush().unwrap();
+                                        }
+                                        Err(ref e) if e.kind() == io::ErrorKind::TimedOut => (),
+                                        Err(e) => eprintln!("{:?}", e),
+                                    }
+                                }
+                                Err(e) => {
+                                    std::mem::drop(&port);
+                                    eprintln!("{:?}", e)
+                                }
+                            }
+                        }
                     }
                 }
             }
