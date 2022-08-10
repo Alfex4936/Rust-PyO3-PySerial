@@ -11,3 +11,5 @@ crate-type = ["cdylib"]
 [dependencies]
 pyo3 = { version = "0.16.5", features = ["extension-module"] }
 serialport = "4.2"
+
+clap = "3.2.16"
