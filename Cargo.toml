@@ -3,6 +3,8 @@ name = "uwb_serial"
 version = "1.0.0"
 edition = "2021"
 authors = ["Seok Won (ikr@kakao.com)"]
+description = "UWB serial connector"
+license = "MIT"
 
 [lib]
 name = "uwb_serial"
