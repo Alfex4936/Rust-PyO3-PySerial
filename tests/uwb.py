@@ -10,7 +10,9 @@ def main(port="/dev/ttyACM0", log_file="log.txt", stdout=False, interactive_mode
 
     print(uwb.port_name, uwb.baudrate, uwb.log_file)
 
-    uwb.connect(stdout=stdout, append=False, interactive=interactive_mode)
+    uwb.connect(
+        stdout=stdout, append=False, interactive=interactive_mode
+    )  # infinite loop
     print("Came here")
 
 

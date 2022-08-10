@@ -2,18 +2,22 @@ use pyo3::prelude::*;
 // use pyo3::types::{PyInt, PyString};
 
 use std::fs::OpenOptions;
-use std::io::{self, Error, Read, Write};
+use std::io::{self, Read, Write};
 use std::time::Duration;
 
 /// Decawave dwm1001 serial connector (contiki-os)
 #[pyclass(name = "UWB", freelist = 100)]
 pub struct UWB {
+    /// Port name to connect
     #[pyo3(get)]
     port_name: String,
+    /// Baudrate
     #[pyo3(get)]
     baudrate: u32,
+    // Serial timeout ms
     #[pyo3(get)]
     timeout: u64,
+    // log file name
     #[pyo3(get)]
     log_file: String,
 }
@@ -119,6 +123,9 @@ impl UWB {
 
                     if let Some(ia) = interactive {
                         if ia {
+                            print!("console> ");
+                            std::io::stdout().flush().unwrap();
+
                             let stdin = std::io::stdin();
                             let mut line_buf = String::new();
                             match stdin.read_line(&mut line_buf) {
@@ -127,8 +134,8 @@ impl UWB {
                                     line_buf.clear();
                                     match port.write(line.as_bytes()) {
                                         Ok(_) => {
-                                            print!("User input: {}", &line);
-                                            // std::io::stdout().flush().unwrap();
+                                            // print!("User input: {}", &line);
+                                            std::io::stdout().flush().unwrap();
                                         }
                                         Err(ref e) if e.kind() == io::ErrorKind::TimedOut => (),
                                         Err(e) => eprintln!("{:?}", e),

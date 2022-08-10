@@ -1,122 +1,52 @@
-Msg: Pick C (seq 149) 
-tag: seq (149)
-Neighbor[0x8eb1]
-From anc: 0xc5af
-Msg: Pick A (seq 150) 
-tag: seq (150)
+tag: seq (40)
 Neighbor[0xc5af]
 From anc: 0xc5af
-Msg: Pick A (seq 151) 
-tag: seq (151)
+Msg: Pick A (seq 41) 
+tag: seq (28)
 Neighbor[0xc5af]
+From anc: 0xc5af
+Msg: Pick A (seq 29) 
+tag: seq (29)
+Neighbor[0xc5af]
+From anc: 0x1aa7
+Msg: Pick B (seq 30) 
+tag: seq (30)
+Neighbor[0x1aa7]
 From anc: 0x8eb1
-Msg: Pick C (seq 152) 
-tag: seq (152)
+Msg: Pick C (seq 31) 
+tag: seq (31)
 Neighbor[0x8eb1]
+From anc: 0xc5af
+Msg: Pick A (seq 32) 
+tag: seq (32)
+Neighbor[0xc5af]
+From anc: 0xc5af
+Msg: Pick A (seq 33) 
+tag: seq (33)
+Neighbor[0xc5af]
+From anc: 0xc5af
+Msg: Pick A (seq 34) 
+tag: seq (34)
+Neighbor[0xc5af]
+From anc: 0xc5af
+Msg: Pick A (seq 35) 
+tag: seq (35)
+Neighbor[0xc5af]
+From anc: 0xc5af
+Msg: Pick A (seq 36) 
+tag: seq (36)
+Neighbor[0xc5af]
+From anc: 0xc5af
+Msg: Pick A (seq 37) 
+tag: seq (37)
+Neighbor[0xc5af]
+From anc: 0x1aa7
+Msg: Pick B (seq 38) 
+tag: seq (38)
+Neighbor[0x1aa7]
 From anc: 0x8eb1
-Msg: Pick C (seq 153) 
+Msg: Pick C (seq 39) 
+tag: seq (39)
 Neighbor[0x8eb1]
-tag: seq (153)
-Neighbor[0x8eb1]
 From anc: 0xc5af
-Msg: Pick A (seq 154) 
-Neighbor[0xc5af]
-tag: seq (154)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 155) 
-tag: seq (155)
-Neighbor[0xc5af]
-From anc: 0x1aa7
-Msg: Pick B (seq 156) 
-Neighbor[0x1aa7]
-tag: seq (156)
-Neighbor[0x1aa7]
-From anc: 0xc5af
-Msg: Pick A (seq 157) 
-tag: seq (157)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 158) 
-tag: seq (158)
-Neighbor[0xc5af]
-From anc: 0x1aa7
-Msg: Pick B (seq 159) 
-Neighbor[0xc5af]
-Neighbor[0x1aa7]
-Neighbor[0x1aa7]
-tag: seq (159)
-Neighbor[0x1aa7]
-From anc: 0x1aa7
-Msg: Pick B (seq 160) 
-k B (seq 135) 
-tag: seq (135)
-Neighbor[0x1aa7]
-From anc: 0x1aa7
-Msg: Pick B (seq 136) 
-From anc: 0xc5af
-Msg: Pick A (seq 137) 
-From anc: 0x1aa7
-Msg: Pick B (seq 138) 
-From anc: 0xc5af
-Msg: Pick A (seq 139) 
-tag: seq (136)
-Neighbor[0x1aa7]
-Neighbor[0xc5af]eq (99)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 100) 
-tag: seq (100)
-Neighbor[0xc5af]
-From anc: 0x1aa7
-Msg: Pick B (seq 101) 
-tag: seq (101)
-Neighbor[0x1aa7]
-From anc: 0xc5af
-Msg: Pick A (seq 102) 
-tag: seq (102)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 103) 
-tag: seq (103)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 104) 
-tag: seq (104)
-Neighbor[0xc5af]
-From anc: 0x8eb1
-Msg: Pick C (seq 105) 
-tag: seq (105)
-Neighbor[0x8eb1]
-From anc: 0x1aa7
-Msg: Pick B (seq 106) 
-tag: seq (106)
-Neighbor[0x1aa7]
-From anc: 0xc5af
-Msg: Pick A (seq 107) 
-tag: seq (107)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 108) 
-tag: seq (108)
-Neighbor[0xc5af]
-From anc: 0x1aa7
-Msg: Pick B (seq 109) 
-tag: seq (109)
-Neighbor[0x1aa7]
-From anc: 0xc5af
-Msg: Pick A (seq 110) 
-tag: seq (110)
-Neighbor[0xc5af]
-tag: seq (111)
-From anc: 0x1aa7
-Msg: Pick B (seq 112) 
-tag: seq (112)
-Neighbor[0x1aa7]
-From anc: 0xc5af
-Msg: Pick A (seq 113) 
-tag: seq (113)
-Neighbor[0xc5af]
-From anc: 0xc5af
-Msg: Pick A (seq 114) 
-tag: seq
+Msg: Pick A (seq 40) 

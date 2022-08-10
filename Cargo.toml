@@ -1,6 +1,6 @@
 [package]
 name = "uwb_serial"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["Seok Won (ikr@kakao.com)"]
 
@@ -11,4 +11,3 @@ crate-type = ["cdylib"]
 [dependencies]
 pyo3 = { version = "0.16.5", features = ["extension-module"] }
 serialport = "4.2"
-# ctrlc = "3.2"

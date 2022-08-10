@@ -10,8 +10,10 @@ def main(port="/dev/ttyACM0", log_file="log.txt", stdout=False, interactive_mode
 
     print(uwb.port_name, uwb.baudrate, uwb.log_file)
 
-    uwb.connect(stdout=stdout, append=False, interactive=interactive_mode)
-    print("Came here")
+    uwb.connect(
+        stdout=stdout, append=False, interactive=interactive_mode
+    )  # infinite loop
+    print("After pressing Ctrl+C, Came here")
 
 
 if __name__ == "__main__":
